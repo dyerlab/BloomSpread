@@ -1,0 +1,17 @@
+project:
+  type: manuscript
+
+manuscript:
+  article: index.qmd
+
+format:
+  html:
+    toc-location: right
+    comments:
+      hypothesis: true
+
+execute:
+  freeze: true
+
+
+

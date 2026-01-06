@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>BloomSpread: A Course Design Framework for Quantifying Cognitive Scaffolding</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8a894fcc3cb5e37eb5bf30def131be2f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+<meta name="citation_title" content="BloomSpread: A Course Design Framework for Quantifying Cognitive Scaffolding">
+<meta name="citation_abstract" content="\ Bloom Spread is a novel metric that quantifies cognitive complexity in educational design by aggregating Bloom&amp;amp;#039;s taxonomy classifications from individual assessments through learning objectives to course and program outcomes. Unlike traditional assessment tools that show only static distribution of cognitive levels, Bloom Spread enables temporal analysis of how cognitive demand evolves across time, revealing multiple overlapping developmental arcs rather than simple linear progression.">
+<meta name="citation_author" content="Rodney J. Dyer">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Mind in society: The development of higher psychological processes;,citation_author=L. S. Vygotskii;,citation_publication_date=1978;,citation_cover_date=1978;,citation_year=1978;">
+<meta name="citation_reference" content="citation_title=Cognitive load during problem solving: Effects on learning;,citation_abstract=Considerable evidence indicates that domain specific knowledge in the form of schemas is the primary factor distinguishing experts from novices in problem‐solving skill. Evidence that conventional problem‐solving activity is not effective in schema acquisition is also accumulating. It is suggested that a major reason for the ineffectiveness of problem solving as a learning device, is that the cognitive processes required by the two activities overlap insufficiently, and that conventional problem solving in the form of means‐ends analysis requires a relatively large amount of cognitive processing capacity which is consequently unavailable for schema acquisition. A computational model and experimental evidence provide support for this contention. Theoretical and practical implications are discussed.;,citation_author=John Sweller;,citation_publication_date=1988-04;,citation_cover_date=1988-04;,citation_year=1988;,citation_doi=10.1207/s15516709cog1202_4;,citation_issn=0364-0213;,citation_volume=12;,citation_journal_title=Cognitive Science;,citation_publisher=Wiley;">
+<meta name="citation_reference" content="citation_title=A revision of bloom’s taxonomy: An overview;,citation_author=David R. Krathwohl;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;,citation_doi=10.1207/s15430421tip4104_2;,citation_issn=00405841;,citation_volume=41;,citation_journal_title=Theory into Practice;,citation_publisher=Ohio State University Press;">
+<meta name="citation_reference" content="citation_title=The process of education;,citation_author=Jerome S Bruner;,citation_publication_date=1961;,citation_cover_date=1961;,citation_year=1961;">
+<meta name="citation_reference" content="citation_title=Taxonomy of educational objectives : The classification of educational goals;,citation_author=Benjamin S. Bloom;,citation_author=David R. Krathwohl;,citation_author=Bertram B. Bloom Masia;,citation_publication_date=1956;,citation_cover_date=1956;,citation_year=1956;">
+<meta name="citation_reference" content="citation_title=Enhancing teaching through constructive alignment;,citation_abstract=Two lines of thinking are becoming increasingly important in higher educational practice. The first derives from constructivist learning theory, and the second from the instructional design literature. Constructivism comprises a family of theories but all have in common the centrality of the learner’s activities in creating meaning. These and related ideas have important implications for teaching and assessment. Instructional designers for their part have emphasised alignment between the objectives of a course or unit and the targets for assessing student performance. &amp;amp;amp;quot;Constructive alignment&amp;quot; represents a marriage of the two thrusts, constructivism being used as a framework to guide decision-making at all stages in instructional design: in deriving curriculum objectives in terms of performances that represent a suitably high cognitive level, in deciding teaching/learning activities judged to elicit those performances, and to assess and summatively report student performance. The &quot;performances of understanding&quot; nominated in the objectives are thus used to systematically align the teaching methods and the assessment. The process is illustrated with reference to a professional development unit in educational psychology for teachers, but the model may be generalized to most units or programs in higher education.;,citation_author=John Biggs;,citation_publication_date=1996;,citation_cover_date=1996;,citation_year=1996;,citation_volume=32;,citation_technical_report_institution=Kluwer Academic Publishers;">
+<meta name="citation_reference" content="citation_title=A taxonomy for learning, teaching and assessing: A revision of bloom’s taxonomy of educational objectives: Complete edition.;,citation_abstract=A succinct discussion of the revisions to Bloom’s classic cognitive taxonomy by Anderson and Krathwohl and how to use them effectively;,citation_author=Lorin W Anderson;,citation_author=David R Krathwohl;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;">
+</head>
+
+<body class="quarto-light">
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">BloomSpread: A Course Design Framework for Quantifying Cognitive Scaffolding</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Author</div>
+          <div class="quarto-title-meta-heading">Affiliation</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author">Rodney J. Dyer </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        Virginia Commonwealth University
+                      </p>
+                  </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        &nbsp;Bloom Spread is a novel metric that quantifies cognitive complexity in educational design by aggregating Bloom’s taxonomy classifications from individual assessments through learning objectives to course and program outcomes. Unlike traditional assessment tools that show only static distribution of cognitive levels, Bloom Spread enables temporal analysis of how cognitive demand evolves across time, revealing multiple overlapping developmental arcs rather than simple linear progression.
+      </div>
+    </div>
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem">The Problem</a>
+  <ul class="collapse">
+  <li><a href="#what-traditional-assessment-tools-miss" id="toc-what-traditional-assessment-tools-miss" class="nav-link" data-scroll-target="#what-traditional-assessment-tools-miss">What Traditional Assessment Tools Miss</a></li>
+  <li><a href="#the-temporal-blindness-problem" id="toc-the-temporal-blindness-problem" class="nav-link" data-scroll-target="#the-temporal-blindness-problem">The Temporal Blindness Problem</a></li>
+  </ul></li>
+  <li><a href="#the-bloom-spread-framework" id="toc-the-bloom-spread-framework" class="nav-link" data-scroll-target="#the-bloom-spread-framework">The Bloom Spread Framework</a>
+  <ul class="collapse">
+  <li><a href="#foundational-elements" id="toc-foundational-elements" class="nav-link" data-scroll-target="#foundational-elements">Foundational Elements</a></li>
+  <li><a href="#hierarchical-aggregation-structure" id="toc-hierarchical-aggregation-structure" class="nav-link" data-scroll-target="#hierarchical-aggregation-structure">Hierarchical Aggregation Structure</a></li>
+  <li><a href="#structural-enforcement-backwards-design" id="toc-structural-enforcement-backwards-design" class="nav-link" data-scroll-target="#structural-enforcement-backwards-design">Structural Enforcement: Backwards Design</a></li>
+  </ul></li>
+  <li><a href="#temporal-analysis-the-key-innovation" id="toc-temporal-analysis-the-key-innovation" class="nav-link" data-scroll-target="#temporal-analysis-the-key-innovation">Temporal Analysis: The Key Innovation</a>
+  <ul class="collapse">
+  <li><a href="#beyond-static-metrics" id="toc-beyond-static-metrics" class="nav-link" data-scroll-target="#beyond-static-metrics">Beyond Static Metrics</a></li>
+  <li><a href="#overlapping-developmental-arcs" id="toc-overlapping-developmental-arcs" class="nav-link" data-scroll-target="#overlapping-developmental-arcs">Overlapping Developmental Arcs</a></li>
+  <li><a href="#grade-weighted-calculation" id="toc-grade-weighted-calculation" class="nav-link" data-scroll-target="#grade-weighted-calculation">Grade-Weighted Calculation</a></li>
+  </ul></li>
+  <li><a href="#taxonomy-of-temporal-bloom-patterns" id="toc-taxonomy-of-temporal-bloom-patterns" class="nav-link" data-scroll-target="#taxonomy-of-temporal-bloom-patterns">Taxonomy of Temporal Bloom Patterns</a>
+  <ul class="collapse">
+  <li><a href="#type-1-sequential-mastery" id="toc-type-1-sequential-mastery" class="nav-link" data-scroll-target="#type-1-sequential-mastery">Type 1: Sequential Mastery</a></li>
+  <li><a href="#type-2-spiral-integration" id="toc-type-2-spiral-integration" class="nav-link" data-scroll-target="#type-2-spiral-integration">Type 2: Spiral Integration</a></li>
+  <li><a href="#type-3-sustained-parallel-complexity" id="toc-type-3-sustained-parallel-complexity" class="nav-link" data-scroll-target="#type-3-sustained-parallel-complexity">Type 3: Sustained Parallel Complexity</a></li>
+  <li><a href="#type-4-convergent-integration" id="toc-type-4-convergent-integration" class="nav-link" data-scroll-target="#type-4-convergent-integration">Type 4: Convergent Integration</a></li>
+  </ul></li>
+  <li><a href="#anti-patterns-what-not-to-do" id="toc-anti-patterns-what-not-to-do" class="nav-link" data-scroll-target="#anti-patterns-what-not-to-do">Anti-Patterns: What NOT to Do</a>
+  <ul class="collapse">
+  <li><a href="#the-spike-and-abandon" id="toc-the-spike-and-abandon" class="nav-link" data-scroll-target="#the-spike-and-abandon">The Spike-and-Abandon</a></li>
+  <li><a href="#the-flat-line" id="toc-the-flat-line" class="nav-link" data-scroll-target="#the-flat-line">The Flat Line</a></li>
+  <li><a href="#the-cliff" id="toc-the-cliff" class="nav-link" data-scroll-target="#the-cliff">The Cliff</a></li>
+  <li><a href="#the-inverted-progression" id="toc-the-inverted-progression" class="nav-link" data-scroll-target="#the-inverted-progression">The Inverted Progression</a></li>
+  <li><a href="#premature-integration" id="toc-premature-integration" class="nav-link" data-scroll-target="#premature-integration">Premature Integration</a></li>
+  </ul></li>
+  <li><a href="#pedagogical-insights" id="toc-pedagogical-insights" class="nav-link" data-scroll-target="#pedagogical-insights">Pedagogical Insights</a>
+  <ul class="collapse">
+  <li><a href="#for-course-design" id="toc-for-course-design" class="nav-link" data-scroll-target="#for-course-design">For Course Design</a></li>
+  <li><a href="#for-program-directors" id="toc-for-program-directors" class="nav-link" data-scroll-target="#for-program-directors">For Program Directors</a></li>
+  <li><a href="#for-accreditation" id="toc-for-accreditation" class="nav-link" data-scroll-target="#for-accreditation">For Accreditation</a></li>
+  </ul></li>
+  <li><a href="#cross-course-expectations" id="toc-cross-course-expectations" class="nav-link" data-scroll-target="#cross-course-expectations">Cross-Course Expectations</a>
+  <ul class="collapse">
+  <li><a href="#warning-signs" id="toc-warning-signs" class="nav-link" data-scroll-target="#warning-signs">Warning Signs</a></li>
+  </ul></li>
+  <li><a href="#theoretical-foundations" id="toc-theoretical-foundations" class="nav-link" data-scroll-target="#theoretical-foundations">Theoretical Foundations</a></li>
+  <li><a href="#research-applications" id="toc-research-applications" class="nav-link" data-scroll-target="#research-applications">Research Applications</a>
+  <ul class="collapse">
+  <li><a href="#potential-research-questions" id="toc-potential-research-questions" class="nav-link" data-scroll-target="#potential-research-questions">Potential Research Questions</a></li>
+  </ul></li>
+  <li><a href="#implementation-backflowstudio" id="toc-implementation-backflowstudio" class="nav-link" data-scroll-target="#implementation-backflowstudio">Implementation: BackflowStudio</a>
+  <ul class="collapse">
+  <li><a href="#core-features" id="toc-core-features" class="nav-link" data-scroll-target="#core-features">Core Features</a></li>
+  <li><a href="#analytics" id="toc-analytics" class="nav-link" data-scroll-target="#analytics">Analytics</a></li>
+  <li><a href="#target-users" id="toc-target-users" class="nav-link" data-scroll-target="#target-users">Target Users</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ongoing-work" id="toc-ongoing-work" class="nav-link" data-scroll-target="#ongoing-work">Ongoing Work</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+  
+
+
+<section id="executive-summary" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary">Executive Summary</h2>
+<p>BloomSpread is a metric that quantifies cognitive complexity in educational design by aggregating Bloom's taxonomy classifications from individual assessments through learning objectives to course and program outcomes. Unlike traditional assessment tools that show only static distribution of cognitive levels, Bloom Spread enables <strong>temporal analysis</strong> of how cognitive demand evolves across time, revealing multiple overlapping developmental arcs rather than simple linear progression.</p>
+<p>This framework addresses a critical gap in educational assessment: the ability to visualize and quantify whether courses actually <em>scaffold learning</em> or simply pile on content. By tracking cognitive complexity temporally and enforcing structural alignment through backwards design, Bloom Spread provides data-driven insights for course improvement, program review, and accreditation documentation.</p>
+</section>
+<section id="the-problem" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem">The Problem</h2>
+<section id="what-traditional-assessment-tools-miss" class="level3">
+<h3 class="anchored" data-anchor-id="what-traditional-assessment-tools-miss">What Traditional Assessment Tools Miss</h3>
+<p>Traditional assessment analysis focuses on <strong>static distribution</strong>: 'This course has 30% Apply, 40% Analyze, 30% Create.' While useful, this tells us nothing about:</p>
+<ul>
+<li><p>Whether complexity builds appropriately across the semester</p></li>
+<li><p>If scaffolding supports student development</p></li>
+<li><p>When critical transitions occur in cognitive demand</p></li>
+<li><p>Whether different learning outcomes follow independent developmental arcs</p></li>
+</ul>
+</section>
+<section id="the-temporal-blindness-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-temporal-blindness-problem">The Temporal Blindness Problem</h3>
+<p>Without temporal analysis, we cannot distinguish between:</p>
+<ul>
+<li><p><strong>Well-scaffolded progression:</strong> Foundational skills → Application → Integration → Creation</p></li>
+<li><p><strong>Front-loaded complexity:</strong> Demanding synthesis before mastery of basics</p></li>
+<li><p><strong>Flat progression:</strong> No development—same cognitive level throughout</p></li>
+<li><p><strong>The 'cliff':</strong> Sudden jump to high complexity without intermediate steps</p></li>
+</ul>
+<p>Each pattern produces the same static distribution but vastly different student experiences and outcomes.</p>
+</section>
+</section>
+<section id="the-bloom-spread-framework" class="level2">
+<h2 class="anchored" data-anchor-id="the-bloom-spread-framework">The Bloom Spread Framework</h2>
+<section id="foundational-elements" class="level3">
+<h3 class="anchored" data-anchor-id="foundational-elements">Foundational Elements</h3>
+<p>Bloom's Revised Taxonomy</p>
+<p>The framework uses Bloom's Revised Taxonomy as its cognitive complexity scale:</p>
+<ol type="1">
+<li><p><strong>Remembering:</strong> Recalling or recognizing information</p></li>
+<li><p><strong>Understanding:</strong> Explaining ideas or concepts</p></li>
+<li><p><strong>Applying:</strong> Using information in familiar situations</p></li>
+<li><p><strong>Analyzing:</strong> Breaking information into parts to explore relationships</p></li>
+<li><p><strong>Evaluating:</strong> Justifying a decision or course of action</p></li>
+<li><p><strong>Creating:</strong> Generating new ideas, products, or ways of viewing things</p></li>
+</ol>
+</section>
+<section id="hierarchical-aggregation-structure" class="level3">
+<h3 class="anchored" data-anchor-id="hierarchical-aggregation-structure">Hierarchical Aggregation Structure</h3>
+<p>Bloom Spread aggregates <strong>upward</strong> through the assessment hierarchy:</p>
+<ul>
+<li><p><strong>Individual Assessment:</strong> Tagged with one or more Bloom levels based on required cognitive operations</p></li>
+<li><p><strong>Module Learning Objective (MLO):</strong> Inherits complexity from all mapped assessments</p></li>
+<li><p><strong>Course Learning Outcome (CLO):</strong> Inherits complexity from all mapped objectives</p></li>
+<li><p><strong>Program Learning Outcome (PLO):</strong> Inherits complexity from all mapped courses</p></li>
+</ul>
+<p>Each level displays: (1) numerical average (e.g., 3.4, 4.5, 6.0), (2) distribution pie chart showing proportions of each Bloom level, and (3) temporal progression showing how complexity evolves over time.</p>
+</section>
+<section id="structural-enforcement-backwards-design" class="level3">
+<h3 class="anchored" data-anchor-id="structural-enforcement-backwards-design">Structural Enforcement: Backwards Design</h3>
+<p>The framework enforces backwards design through <strong>data structure requirements</strong>:</p>
+<ul>
+<li><p>Cannot create a Module without defining at least one Course Learning Outcome</p></li>
+<li><p>Cannot create an Assessment without defining at least one Module Learning Objective</p></li>
+<li><p>Every Assessment must map to at least one MLO and one CLO</p></li>
+<li><p>Every Assessment must be tagged with one or more Bloom taxonomy levels</p></li>
+</ul>
+<p>This prevents assessments from being created in isolation and ensures <em>constructive alignment</em> (Biggs, 1996) — every assessment must explicitly connect to the pedagogical outcomes it serves.</p>
+</section>
+</section>
+<section id="temporal-analysis-the-key-innovation" class="level2">
+<h2 class="anchored" data-anchor-id="temporal-analysis-the-key-innovation">Temporal Analysis: The Key Innovation</h2>
+<section id="beyond-static-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="beyond-static-metrics">Beyond Static Metrics</h3>
+<p>The temporal dimension is Bloom Spread's primary innovation. Rather than reducing a course to a single static metric, the framework reveals the <strong>dynamic process of skill development</strong> across time.</p>
+<p>What Temporal Analysis Shows</p>
+<p><strong>Traditional (Static) View:</strong></p>
+<p>'This course has 30% Apply, 40% Analyze, 30% Create' — useful but doesn't show development.</p>
+<p><strong>Temporal Bloom Spread View:</strong></p>
+<ul>
+<li><p>Early assessments focus on foundational skills (Bloom ~2.5)</p></li>
+<li><p>Mid-semester complexity increases as tools are mastered (Bloom ~4.0)</p></li>
+<li><p>Late semester demands synthesis and creation (Bloom ~5.5)</p></li>
+<li><p>Shows whether scaffolding is appropriate for student development</p></li>
+</ul>
+</section>
+<section id="overlapping-developmental-arcs" class="level3">
+<h3 class="anchored" data-anchor-id="overlapping-developmental-arcs">Overlapping Developmental Arcs</h3>
+<p>Real learning doesn't follow a single linear progression. Bloom Spread tracks <strong>multiple overlapping developmental arcs</strong> for different course learning outcomes, each following an introduce → reinforce → assess for mastery pattern.</p>
+<p><strong>Three-Phase Developmental Arc:</strong></p>
+<ol start="7" type="1">
+<li><p><strong>Introduction Phase (rising curve):</strong> New concept/skill introduced, low-stakes practice, formative assessment, Bloom Spread increases</p></li>
+<li><p><strong>Reinforcement Phase (plateau):</strong> Sustained practice, skill applied in various contexts, multiple assessments at mastery level, Bloom Spread maintains</p></li>
+<li><p><strong>Integration Phase (maintenance or slight decline):</strong> Skill becomes prerequisite for higher work, integrated into complex assessments, may show lower direct measurement as embedded in other outcomes</p></li>
+</ol>
+</section>
+<section id="grade-weighted-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="grade-weighted-calculation">Grade-Weighted Calculation</h3>
+<p><strong>Critical methodological requirement:</strong> Bloom Spread must be <strong>grade-weighted</strong> to accurately represent pedagogical intent. Without weighting, low-stakes assessments (quizzes, formative activities) dominate temporal graphs despite high-stakes integration assessments (papers, projects, exams) being the actual drivers of cognitive progression.</p>
+<p><em>Example:</em></p>
+<ul>
+<li><p>10 weekly quizzes (Bloom 2) at 1% each = 10% of grade</p></li>
+<li><p>5 activities (Bloom 3-4) at 4% each = 20% of grade</p></li>
+<li><p>4 integration papers (Bloom 5-6) at 17.5% each = 70% of grade</p></li>
+</ul>
+<p>Unweighted: Low Bloom scores would dominate (15 lower-level assessments vs.&nbsp;4 higher-level).</p>
+<p>Grade-weighted: Papers appropriately drive the temporal trajectory while activities provide developmental scaffolding.</p>
+</section>
+</section>
+<section id="taxonomy-of-temporal-bloom-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="taxonomy-of-temporal-bloom-patterns">Taxonomy of Temporal Bloom Patterns</h2>
+<p>Empirical observation reveals four primary temporal patterns, each appropriate for different course types and levels.</p>
+<section id="type-1-sequential-mastery" class="level3">
+<h3 class="anchored" data-anchor-id="type-1-sequential-mastery">Type 1: Sequential Mastery</h3>
+<p><strong>Pattern:</strong> Each outcome rises independently with minimal temporal overlap. Each plateaus before the next begins. Bloom Spread increases in discrete steps.</p>
+<p><strong>Appropriate for:</strong> Foundational courses, skills-based courses with clear prerequisites, students new to the domain, building fundamental competencies.</p>
+<p><strong>Example:</strong> Programming 101 (syntax → algorithms → projects)</p>
+</section>
+<section id="type-2-spiral-integration" class="level3">
+<h3 class="anchored" data-anchor-id="type-2-spiral-integration">Type 2: Spiral Integration</h3>
+<p><strong>Pattern:</strong> Significant overlap between arcs. Earlier outcomes decline as later ones rise. Skills integrate into higher-level work. Continuous reinforcement through integration.</p>
+<p><strong>Appropriate for:</strong> Middle-level courses, building on established foundations, connecting multiple skill domains, progressive skill development.</p>
+<p><strong>Example:</strong> Data literacy (tools → analysis → communication)</p>
+</section>
+<section id="type-3-sustained-parallel-complexity" class="level3">
+<h3 class="anchored" data-anchor-id="type-3-sustained-parallel-complexity">Type 3: Sustained Parallel Complexity</h3>
+<p><strong>Pattern:</strong> All outcomes plateau at high Bloom levels simultaneously. Simultaneous high-order thinking. Minimal sequential dependency. Sustained cognitive demand.</p>
+<p><strong>Appropriate for:</strong> Graduate seminars, capstone courses, research-intensive courses, domain experts deepening expertise.</p>
+<p><strong>Example:</strong> Graduate research design (literature review + methods + analysis all at Evaluate/Create level)</p>
+</section>
+<section id="type-4-convergent-integration" class="level3">
+<h3 class="anchored" data-anchor-id="type-4-convergent-integration">Type 4: Convergent Integration</h3>
+<p><strong>Pattern:</strong> Multiple arcs converge at end. All outcomes assessed simultaneously in final project. Peak complexity at semester end. Heavy integration requirement.</p>
+<p><strong>Appropriate for:</strong> Senior capstone courses, final projects/theses, portfolio courses, demonstration of cumulative learning.</p>
+<p><strong>Example:</strong> Senior thesis (research + analysis + writing + presentation all converge)</p>
+</section>
+</section>
+<section id="anti-patterns-what-not-to-do" class="level2">
+<h2 class="anchored" data-anchor-id="anti-patterns-what-not-to-do">Anti-Patterns: What NOT to Do</h2>
+<p>Five common temporal patterns that research and learning theory suggest are pedagogically problematic:</p>
+<section id="the-spike-and-abandon" class="level3">
+<h3 class="anchored" data-anchor-id="the-spike-and-abandon">The Spike-and-Abandon</h3>
+<p><strong>Problem:</strong> Topics covered but not reinforced. Student experience: 'We learned this but never used it again.' Outcome: Poor retention, fragmented understanding.</p>
+<p><strong>Fix:</strong> Add reinforcement assessments, integrate earlier skills into later work.</p>
+</section>
+<section id="the-flat-line" class="level3">
+<h3 class="anchored" data-anchor-id="the-flat-line">The Flat Line</h3>
+<p><strong>Problem:</strong> No progression—all assessments at same complexity. Student experience: 'This course was just busy work.' Outcome: No skill development, same cognitive level start to finish.</p>
+<p><strong>Fix:</strong> Redesign assessments to show progression from foundational to advanced.</p>
+</section>
+<section id="the-cliff" class="level3">
+<h3 class="anchored" data-anchor-id="the-cliff">The Cliff</h3>
+<p><strong>Problem:</strong> Sudden jump to high complexity without scaffolding. Student experience: 'Final project came out of nowhere.' Outcome: High stress, poor performance, complaints about fairness.</p>
+<p><strong>Fix:</strong> Add intermediate-complexity assessments to bridge the gap.</p>
+</section>
+<section id="the-inverted-progression" class="level3">
+<h3 class="anchored" data-anchor-id="the-inverted-progression">The Inverted Progression</h3>
+<p><strong>Problem:</strong> Starts complex, becomes simpler. Student experience: 'First exam was hardest, got easier from there.' Outcome: Misaligned with learning theory, wastes early confusion.</p>
+<p><strong>Fix:</strong> Resequence assessments to build from foundation to complexity.</p>
+</section>
+<section id="premature-integration" class="level3">
+<h3 class="anchored" data-anchor-id="premature-integration">Premature Integration</h3>
+<p><strong>Problem:</strong> Expecting integration before foundations are established. Student experience: 'I have to do X but we haven't learned Y yet.' Outcome: Frustration, poor work quality, learned helplessness.</p>
+<p><strong>Fix:</strong> Delay integration requirements until prerequisite skills are established.</p>
+</section>
+</section>
+<section id="pedagogical-insights" class="level2">
+<h2 class="anchored" data-anchor-id="pedagogical-insights">Pedagogical Insights</h2>
+<p>Key Questions Bloom Spread Answers</p>
+<section id="for-course-design" class="level3">
+<h3 class="anchored" data-anchor-id="for-course-design">For Course Design</h3>
+<ul>
+<li><p>Are you actually scaffolding learning, or just piling on content?</p></li>
+<li><p>Does your course cognitive demand match the level you're teaching at?</p></li>
+<li><p>Are you assessing what you think you're assessing?</p></li>
+<li><p>When should I introduce new content? (Look at prerequisite outcome curves)</p></li>
+<li><p>Am I reinforcing foundational skills enough? (Check if curves maintain or drop)</p></li>
+<li><p>Why are students struggling with the final project? (Check if integration curve starts too late)</p></li>
+</ul>
+</section>
+<section id="for-program-directors" class="level3">
+<h3 class="anchored" data-anchor-id="for-program-directors">For Program Directors</h3>
+<ul>
+<li><p>Does your curriculum show progression from intro to capstone?</p></li>
+<li><p>Are graduate courses actually more cognitively demanding than undergrad?</p></li>
+<li><p>Where are the gaps in your program's cognitive development?</p></li>
+<li><p>Does our intro course establish foundations that advanced courses build on?</p></li>
+<li><p>Are we spiraling concepts appropriately across the curriculum?</p></li>
+</ul>
+</section>
+<section id="for-accreditation" class="level3">
+<h3 class="anchored" data-anchor-id="for-accreditation">For Accreditation</h3>
+<ul>
+<li><p>Quantitative evidence of scaffolding across courses and programs</p></li>
+<li><p>Visual demonstration of progressive complexity from freshman to senior year</p></li>
+<li><p>Data-driven curriculum improvement documentation</p></li>
+<li><p>Clear chain of evidence from assignments to program outcomes</p></li>
+</ul>
+</section>
+</section>
+<section id="cross-course-expectations" class="level2">
+<h2 class="anchored" data-anchor-id="cross-course-expectations">Cross-Course Expectations</h2>
+<p>Introductory Courses</p>
+<p><strong>Expected pattern:</strong> Average Bloom Spread 2.0-3.5 across semester. Focus on Remember → Understand → Apply.</p>
+<p>Intermediate Courses</p>
+<p><strong>Expected pattern:</strong> Average Bloom Spread 3.0-4.5 across semester. Focus on Apply → Analyze.</p>
+<p>Advanced/Graduate Courses</p>
+<p><strong>Expected pattern:</strong> Average Bloom Spread 4.0-6.0 across semester. Focus on Analyze → Evaluate → Create.</p>
+<section id="warning-signs" class="level3">
+<h3 class="anchored" data-anchor-id="warning-signs">Warning Signs</h3>
+<ul>
+<li><p>Intro course with average Bloom Spread &gt; 4.5 (too demanding for foundational level)</p></li>
+<li><p>Graduate course with average Bloom Spread &lt; 3.5 (not sufficiently advanced)</p></li>
+<li><p>Any course with flat Bloom Spread (no progression)</p></li>
+<li><p>Any course with inverted Bloom Spread (backwards progression)</p></li>
+</ul>
+</section>
+</section>
+<section id="theoretical-foundations" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical-foundations">Theoretical Foundations</h2>
+<p>Bloom Spread operationalizes established learning theories:</p>
+<p>Bloom's Taxonomy <span class="citation" data-cites="Bloom1956">Anderson and Krathwohl (<a href="#ref-Anderson2001" role="doc-biblioref">2001</a>)</span></p>
+<p>Hierarchical model of cognitive complexity providing the measurement framework. Foundation: Remember, Understand. Application: Apply. Higher-order: Analyze, Evaluate, Create.</p>
+<p>Spiral Curriculum <span class="citation" data-cites="Bruner1961">(<a href="#ref-Bruner1961" role="doc-biblioref">Bruner 1961</a>)</span></p>
+<p>Revisit concepts at increasing complexity, build on prior knowledge, progressive deepening of understanding. Maps to overlapping Bloom Spread arcs showing how earlier skills integrate into later work.</p>
+<p>Scaffolding <span class="citation" data-cites="Vygotskii1978">(<a href="#ref-Vygotskii1978" role="doc-biblioref">Vygotskii 1978</a>)</span></p>
+<p>Zone of Proximal Development, temporary support for skill development, gradual release of responsibility. Visualized in Bloom Spread temporal progression from guided practice to independent mastery.</p>
+<p>Constructive Alignment <span class="citation" data-cites="Biggs1996">(<a href="#ref-Biggs1996" role="doc-biblioref">Biggs 1996</a>)</span></p>
+<p>Learning outcomes, teaching methods, and assessments must align. Bloom Spread enforces structural alignment through required mappings. Assessment → Objective → Outcome chain ensures coherence.</p>
+<p>Cognitive Load Theory <span class="citation" data-cites="Sweller1988">(<a href="#ref-Sweller1988" role="doc-biblioref">Sweller 1988</a>)</span></p>
+<p>Manage intrinsic, extraneous, and germane load. Anti-patterns (cliffs, premature integration) indicate excessive cognitive load. Appropriate Bloom Spread progression manages cognitive load across time.</p>
+</section>
+<section id="research-applications" class="level2">
+<h2 class="anchored" data-anchor-id="research-applications">Research Applications</h2>
+<section id="potential-research-questions" class="level3">
+<h3 class="anchored" data-anchor-id="potential-research-questions">Potential Research Questions</h3>
+<p>Descriptive Research</p>
+<ul>
+<li><p>What temporal Bloom patterns are most common in intro biology courses?</p></li>
+<li><p>Do patterns differ by discipline (STEM vs humanities vs social sciences)?</p></li>
+<li><p>How do patterns change from intro → intermediate → advanced?</p></li>
+<li><p>What is the typical Bloom Spread range for each course level?</p></li>
+</ul>
+<p>Correlational Research</p>
+<ul>
+<li><p>Does Sequential Mastery pattern correlate with higher student success in foundational courses?</p></li>
+<li><p>Do anti-patterns correlate with student complaints or DFW rates?</p></li>
+<li><p>Does Spiral Integration correlate with better retention one year later?</p></li>
+<li><p>Is there a relationship between Bloom Spread progression and course evaluations?</p></li>
+</ul>
+<p>Experimental Research</p>
+<ul>
+<li><p>If we redesign Course X from Spike-and-Abandon to Spiral Integration, do outcomes improve?</p></li>
+<li><p>Does showing instructors their temporal pattern lead to course improvements?</p></li>
+<li><p>Can we train faculty to recognize and avoid anti-patterns?</p></li>
+<li><p>Does optimizing Bloom Spread progression reduce DFW rates?</p></li>
+</ul>
+<p>Program-Level Research</p>
+<ul>
+<li><p>Does our curriculum show appropriate progression across the degree program?</p></li>
+<li><p>Where are the gaps between courses that need curricular scaffolding?</p></li>
+<li><p>How does Bloom Spread align with program learning outcomes?</p></li>
+<li><p>What is the cumulative Bloom Spread across a complete degree program?</p></li>
+</ul>
+</section>
+</section>
+<section id="implementation-backflowstudio" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-backflowstudio">Implementation: BackflowStudio</h2>
+<p><a href="media/Backflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="media/Backflow.png" class="img-fluid"></a></p>
+<p>BackflowStudio is a macOS/iOS application that operationalizes the Bloom Spread framework for course design and analysis. The application enforces backwards design principles through data structure while providing visualization and reporting tools for temporal Bloom analysis. A complete discussion of this application is found at <a href="https://backflow.studio">https://backflow.studio</a>.</p>
+<section id="core-features" class="level3">
+<h3 class="anchored" data-anchor-id="core-features">Core Features</h3>
+<p>This application is designed to help instructors develop objective-based courses.</p>
+<ul>
+<li><strong>Distribution pie charts:</strong> Show proportions of each Bloom level for outcomes, objectives, and assessments, color-coded by taxonomy level, numerical average displayed in center</li>
+</ul>
+<section id="three-column-mapping-view" class="level4">
+<h4 class="anchored" data-anchor-id="three-column-mapping-view">Three-Column Mapping View</h4>
+<p><a href="media/ModuleMappings.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="media/ModuleMappings.png" class="img-fluid"></a></p>
+<p>Visual interface showing Course Learning Outcomes (blue cards), Module Learning Objectives (green cards), and Assessments (orange/varied cards) with connection lines displaying mappings. Bloom Spread for assessment and accumulated onto each objective.</p>
+</section>
+<section id="temporal-visualizations" class="level4">
+<h4 class="anchored" data-anchor-id="temporal-visualizations">Temporal Visualizations</h4>
+<p><a href="media/BloomTrajectory.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="media/BloomTrajectory.png" class="img-fluid"></a></p>
+<ul>
+<li><strong>Temporal line graphs:</strong> X-axis = time (weeks, modules, assessment due dates), Y-axis = Bloom Spread (1.0-6.0), multiple lines for different CLOs showing overlapping developmental arcs</li>
+</ul>
+</section>
+</section>
+<section id="analytics" class="level3">
+<h3 class="anchored" data-anchor-id="analytics">Analytics</h3>
+<p><a href="media/Analytics.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="media/Analytics.png" class="img-fluid"></a></p>
+<p><a href="media/InstructionalScaffolding.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="media/InstructionalScaffolding.png" class="img-fluid"></a></p>
+<ul>
+<li><p><strong>"Your Pattern" Analysis:</strong> Shows course's temporal Bloom graph, identifies which pattern type it matches, assesses appropriateness for course level</p></li>
+<li><p><strong>"Cognitive Progression" View:</strong> Temporal graph for each CLO, overall course Bloom Spread progression, identifies key transition points</p></li>
+<li><p><strong>"Bloom Balance" Dashboard:</strong> Pie charts showing distribution, comparison to norms for course level, identifies over/under-represented levels</p></li>
+<li><p><strong>"Anti-Pattern Detection":</strong> Flags potential issues (cliffs, premature integration), explains why problematic, suggests specific scaffolding improvements</p></li>
+<li><p><strong>"Export for Publication":</strong> Clean graphs for papers/presentations, anonymized data for research, publication-ready visualizations</p></li>
+</ul>
+</section>
+<section id="target-users" class="level3">
+<h3 class="anchored" data-anchor-id="target-users">Target Users</h3>
+<ul>
+<li><p><strong>University professors:</strong> Course design, assessment planning, temporal analysis of cognitive scaffolding</p></li>
+<li><p><strong>K-12 teachers:</strong> Unit planning, standards alignment, progressive skill development</p></li>
+<li><p><strong>Instructional designers:</strong> Course quality assurance, backwards design enforcement, data-driven improvement</p></li>
+<li><p><strong>Department chairs:</strong> Program review, curriculum coherence analysis, faculty development support</p></li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Bloom Spread represents a significant innovation in educational assessment and course design. By quantifying cognitive complexity and enabling temporal analysis of how that complexity develops, it:</p>
+<ol type="1">
+<li><p><strong>Makes the invisible visible:</strong> Shows pedagogical structure that typically exists only in instructor minds</p></li>
+<li><p><strong>Enables data-driven improvement:</strong> Identifies anti-patterns and validates effective scaffolding</p></li>
+<li><p><strong>Supports multiple levels:</strong> From individual assessments to program-wide outcomes</p></li>
+<li><p><strong>Connects theory to practice:</strong> Operationalizes learning theory concepts (scaffolding, spiral curriculum, constructive alignment)</p></li>
+<li><p><strong>Facilitates research:</strong> Provides quantitative data for studying curriculum effectiveness</p></li>
+</ol>
+<p>The temporal analysis capability—showing multiple overlapping developmental arcs—represents a particularly novel contribution. Rather than reducing a course to a single static metric, Bloom Spread reveals the complex, dynamic process of skill development across time.</p>
+<p>As faculty use this framework to analyze and improve their courses, and as researchers study the patterns that emerge, Bloom Spread has the potential to establish new evidence-based best practices for curriculum design and provide a common language for discussing cognitive scaffolding in higher education.</p>
+</section>
+<section id="ongoing-work" class="level2">
+<h2 class="anchored" data-anchor-id="ongoing-work">Ongoing Work</h2>
+<p>Paper 1: Framework Introduction and Validation</p>
+<p><em>"Bloom Spread: A Metric for Quantifying Cognitive Demand in Course Assessments"</em> — Introduces the metric, validates against expert ratings, shows reliability across disciplines, establishes measurement methodology.</p>
+<p>Paper 2: Pattern Taxonomy</p>
+<p><em>"A Taxonomy of Temporal Bloom Progressions in Higher Education"</em> — Introduces pattern taxonomy, documents prevalence of each pattern, associates patterns with course characteristics, provides exemplars from multiple disciplines.</p>
+<p>Paper 3: Outcomes Research</p>
+<p><em>"Temporal Bloom Patterns and Student Success: An Empirical Analysis"</em> — Correlates patterns with student outcomes, identifies anti-patterns that predict poor performance, provides evidence-based recommendations, quantifies impact of different progression types.</p>
+<p>Paper 4: Intervention Study</p>
+<p><em>"From Coverage to Mastery: Redesigning Courses Using Bloom Spread Analysis"</em> — Faculty use visualization tools to identify anti-patterns, measure improvement after redesign, document faculty perceptions and adoption.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Anderson2001" class="csl-entry" role="listitem">
+Anderson, Lorin W, and David R Krathwohl. 2001. <em>A Taxonomy for Learning, Teaching and Assessing: A Revision of Bloom’s Taxonomy of Educational Objectives: Complete Edition.</em> Longman.
+</div>
+<div id="ref-Biggs1996" class="csl-entry" role="listitem">
+Biggs, John. 1996. <span>“Enhancing Teaching Through Constructive Alignment.”</span> Vol. 32. Kluwer Academic Publishers.
+</div>
+<div id="ref-Bloom1956" class="csl-entry" role="listitem">
+Bloom, Benjamin S., David R. Krathwohl, and Bertram B. Bloom Masia. 1956. <em>Taxonomy of Educational Objectives : The Classification of Educational Goals</em>. First Edition. David McKay Company.
+</div>
+<div id="ref-Bruner1961" class="csl-entry" role="listitem">
+Bruner, Jerome S. 1961. <em>The Process of Education</em>. Harvard University Press.
+</div>
+<div id="ref-Sweller1988" class="csl-entry" role="listitem">
+Sweller, John. 1988. <span>“Cognitive Load During Problem Solving: Effects on Learning.”</span> <em>Cognitive Science</em> 12 (April): 257–85. <a href="https://doi.org/10.1207/s15516709cog1202_4">https://doi.org/10.1207/s15516709cog1202_4</a>.
+</div>
+<div id="ref-Vygotskii1978" class="csl-entry" role="listitem">
+Vygotskii, L. S. 1978. <em>Mind in Society: The Development of Higher Psychological Processes</em>. Harvard University Press.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

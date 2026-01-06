@@ -1,0 +1,462 @@
+---
+title: "BloomSpread: A Course Design Framework for Quantifying Cognitive Scaffolding"
+authors:
+  - name: Rodney J. Dyer
+    affiliation: Virginia Commonwealth University
+    roles: writing
+    corresponding: true
+bibliography: references.bib
+abstract: \ 
+  Bloom Spread is a novel metric that quantifies cognitive complexity in educational design by aggregating Bloom's taxonomy classifications from individual assessments through learning objectives to course and program outcomes. Unlike traditional assessment tools that show only static distribution of cognitive levels, Bloom Spread enables temporal analysis of how cognitive demand evolves across time, revealing multiple overlapping developmental arcs rather than simple linear progression.
+---
+
+
+
+## Executive Summary
+
+BloomSpread is a metric that quantifies cognitive complexity in educational design by aggregating Bloom\'s taxonomy classifications from individual assessments through learning objectives to course and program outcomes. Unlike traditional assessment tools that show only static distribution of cognitive levels, Bloom Spread enables **temporal analysis** of how cognitive demand evolves across time, revealing multiple overlapping developmental arcs rather than simple linear progression.
+
+This framework addresses a critical gap in educational assessment: the ability to visualize and quantify whether courses actually *scaffold learning* or simply pile on content. By tracking cognitive complexity temporally and enforcing structural alignment through backwards design, Bloom Spread provides data-driven insights for course improvement, program review, and accreditation documentation.  
+
+## The Problem
+
+### What Traditional Assessment Tools Miss
+
+Traditional assessment analysis focuses on **static distribution**: \'This course has 30% Apply, 40% Analyze, 30% Create.\' While useful, this tells us nothing about:
+
+- Whether complexity builds appropriately across the semester
+
+- If scaffolding supports student development
+
+- When critical transitions occur in cognitive demand
+
+- Whether different learning outcomes follow independent developmental arcs
+
+### The Temporal Blindness Problem
+
+Without temporal analysis, we cannot distinguish between:
+
+- **Well-scaffolded progression:** Foundational skills → Application → Integration → Creation
+
+- **Front-loaded complexity:** Demanding synthesis before mastery of basics
+
+- **Flat progression:** No development---same cognitive level throughout
+
+- **The \'cliff\':** Sudden jump to high complexity without intermediate steps
+
+Each pattern produces the same static distribution but vastly different student experiences and outcomes.  
+
+
+
+
+## The Bloom Spread Framework
+
+### Foundational Elements
+
+Bloom\'s Revised Taxonomy
+
+The framework uses Bloom\'s Revised Taxonomy as its cognitive complexity scale:
+
+1.  **Remembering:** Recalling or recognizing information
+
+2.  **Understanding:** Explaining ideas or concepts
+
+3.  **Applying:** Using information in familiar situations
+
+4.  **Analyzing:** Breaking information into parts to explore relationships
+
+5.  **Evaluating:** Justifying a decision or course of action
+
+6.  **Creating:** Generating new ideas, products, or ways of viewing things
+
+
+
+
+### Hierarchical Aggregation Structure
+
+Bloom Spread aggregates **upward** through the assessment hierarchy:
+
+- **Individual Assessment:** Tagged with one or more Bloom levels based on required cognitive operations
+
+- **Module Learning Objective (MLO):** Inherits complexity from all mapped assessments
+
+- **Course Learning Outcome (CLO):** Inherits complexity from all mapped objectives
+
+- **Program Learning Outcome (PLO):** Inherits complexity from all mapped courses
+
+Each level displays: (1) numerical average (e.g., 3.4, 4.5, 6.0), (2) distribution pie chart showing proportions of each Bloom level, and (3) temporal progression showing how complexity evolves over time.
+
+### Structural Enforcement: Backwards Design
+
+The framework enforces backwards design through **data structure requirements**:
+
+- Cannot create a Module without defining at least one Course Learning Outcome
+
+- Cannot create an Assessment without defining at least one Module Learning Objective
+
+- Every Assessment must map to at least one MLO and one CLO
+
+- Every Assessment must be tagged with one or more Bloom taxonomy levels
+
+This prevents assessments from being created in isolation and ensures *constructive alignment* (Biggs, 1996) --- every assessment must explicitly connect to the pedagogical outcomes it serves.
+
+
+## Temporal Analysis: The Key Innovation
+
+### Beyond Static Metrics
+
+The temporal dimension is Bloom Spread\'s primary innovation. Rather than reducing a course to a single static metric, the framework reveals the **dynamic process of skill development** across time.
+
+What Temporal Analysis Shows
+
+**Traditional (Static) View:**
+
+\'This course has 30% Apply, 40% Analyze, 30% Create\' --- useful but doesn\'t show development.
+
+**Temporal Bloom Spread View:**
+
+- Early assessments focus on foundational skills (Bloom \~2.5)
+
+- Mid-semester complexity increases as tools are mastered (Bloom \~4.0)
+
+- Late semester demands synthesis and creation (Bloom \~5.5)
+
+- Shows whether scaffolding is appropriate for student development
+
+### Overlapping Developmental Arcs
+
+Real learning doesn\'t follow a single linear progression. Bloom Spread tracks **multiple overlapping developmental arcs** for different course learning outcomes, each following an introduce → reinforce → assess for mastery pattern.
+
+**Three-Phase Developmental Arc:**
+
+7.  **Introduction Phase (rising curve):** New concept/skill introduced, low-stakes practice, formative assessment, Bloom Spread increases
+
+8.  **Reinforcement Phase (plateau):** Sustained practice, skill applied in various contexts, multiple assessments at mastery level, Bloom Spread maintains
+
+9.  **Integration Phase (maintenance or slight decline):** Skill becomes prerequisite for higher work, integrated into complex assessments, may show lower direct measurement as embedded in other outcomes
+
+
+### Grade-Weighted Calculation
+
+**Critical methodological requirement:** Bloom Spread must be **grade-weighted** to accurately represent pedagogical intent. Without weighting, low-stakes assessments (quizzes, formative activities) dominate temporal graphs despite high-stakes integration assessments (papers, projects, exams) being the actual drivers of cognitive progression.
+
+*Example:*
+
+- 10 weekly quizzes (Bloom 2) at 1% each = 10% of grade
+
+- 5 activities (Bloom 3-4) at 4% each = 20% of grade
+
+- 4 integration papers (Bloom 5-6) at 17.5% each = 70% of grade
+
+Unweighted: Low Bloom scores would dominate (15 lower-level assessments vs. 4 higher-level). 
+
+Grade-weighted: Papers appropriately drive the temporal trajectory while activities provide developmental scaffolding.
+
+
+## Taxonomy of Temporal Bloom Patterns
+
+Empirical observation reveals four primary temporal patterns, each appropriate for different course types and levels.
+
+### Type 1: Sequential Mastery
+
+**Pattern:** Each outcome rises independently with minimal temporal overlap. Each plateaus before the next begins. Bloom Spread increases in discrete steps.
+
+**Appropriate for:** Foundational courses, skills-based courses with clear prerequisites, students new to the domain, building fundamental competencies.
+
+**Example:** Programming 101 (syntax → algorithms → projects)
+
+### Type 2: Spiral Integration
+
+**Pattern:** Significant overlap between arcs. Earlier outcomes decline as later ones rise. Skills integrate into higher-level work. Continuous reinforcement through integration.
+
+**Appropriate for:** Middle-level courses, building on established foundations, connecting multiple skill domains, progressive skill development.
+
+**Example:** Data literacy (tools → analysis → communication)
+
+### Type 3: Sustained Parallel Complexity
+
+**Pattern:** All outcomes plateau at high Bloom levels simultaneously. Simultaneous high-order thinking. Minimal sequential dependency. Sustained cognitive demand.
+
+**Appropriate for:** Graduate seminars, capstone courses, research-intensive courses, domain experts deepening expertise.
+
+**Example:** Graduate research design (literature review + methods + analysis all at Evaluate/Create level)
+
+### Type 4: Convergent Integration
+
+**Pattern:** Multiple arcs converge at end. All outcomes assessed simultaneously in final project. Peak complexity at semester end. Heavy integration requirement.
+
+**Appropriate for:** Senior capstone courses, final projects/theses, portfolio courses, demonstration of cumulative learning.
+
+**Example:** Senior thesis (research + analysis + writing + presentation all converge)
+
+
+## Anti-Patterns: What NOT to Do
+
+Five common temporal patterns that research and learning theory suggest are pedagogically problematic:
+
+### The Spike-and-Abandon
+
+**Problem:** Topics covered but not reinforced. Student experience: \'We learned this but never used it again.\' Outcome: Poor retention, fragmented understanding.
+
+**Fix:** Add reinforcement assessments, integrate earlier skills into later work.
+
+### The Flat Line
+
+**Problem:** No progression---all assessments at same complexity. Student experience: \'This course was just busy work.\' Outcome: No skill development, same cognitive level start to finish.
+
+**Fix:** Redesign assessments to show progression from foundational to advanced.
+
+### The Cliff
+
+**Problem:** Sudden jump to high complexity without scaffolding. Student experience: \'Final project came out of nowhere.\' Outcome: High stress, poor performance, complaints about fairness.
+
+**Fix:** Add intermediate-complexity assessments to bridge the gap.
+
+### The Inverted Progression
+
+**Problem:** Starts complex, becomes simpler. Student experience: \'First exam was hardest, got easier from there.\' Outcome: Misaligned with learning theory, wastes early confusion.
+
+**Fix:** Resequence assessments to build from foundation to complexity.
+
+### Premature Integration
+
+**Problem:** Expecting integration before foundations are established. Student experience: \'I have to do X but we haven\'t learned Y yet.\' Outcome: Frustration, poor work quality, learned helplessness.
+
+**Fix:** Delay integration requirements until prerequisite skills are established.
+
+
+
+## Pedagogical Insights
+
+Key Questions Bloom Spread Answers
+
+### For Course Design
+
+- Are you actually scaffolding learning, or just piling on content?
+
+- Does your course cognitive demand match the level you\'re teaching at?
+
+- Are you assessing what you think you\'re assessing?
+
+- When should I introduce new content? (Look at prerequisite outcome curves)
+
+- Am I reinforcing foundational skills enough? (Check if curves maintain or drop)
+
+- Why are students struggling with the final project? (Check if integration curve starts too late)
+
+### For Program Directors
+
+- Does your curriculum show progression from intro to capstone?
+
+- Are graduate courses actually more cognitively demanding than undergrad?
+
+- Where are the gaps in your program\'s cognitive development?
+
+- Does our intro course establish foundations that advanced courses build on?
+
+- Are we spiraling concepts appropriately across the curriculum?
+
+### For Accreditation
+
+- Quantitative evidence of scaffolding across courses and programs
+
+- Visual demonstration of progressive complexity from freshman to senior year
+
+- Data-driven curriculum improvement documentation
+
+- Clear chain of evidence from assignments to program outcomes
+
+
+## Cross-Course Expectations
+
+Introductory Courses
+
+**Expected pattern:** Average Bloom Spread 2.0-3.5 across semester. Focus on Remember → Understand → Apply.
+
+Intermediate Courses
+
+**Expected pattern:** Average Bloom Spread 3.0-4.5 across semester. Focus on Apply → Analyze.
+
+Advanced/Graduate Courses
+
+**Expected pattern:** Average Bloom Spread 4.0-6.0 across semester. Focus on Analyze → Evaluate → Create.
+
+
+### Warning Signs
+
+- Intro course with average Bloom Spread \> 4.5 (too demanding for foundational level)
+
+- Graduate course with average Bloom Spread \< 3.5 (not sufficiently advanced)
+
+- Any course with flat Bloom Spread (no progression)
+
+- Any course with inverted Bloom Spread (backwards progression)
+
+
+## Theoretical Foundations
+
+Bloom Spread operationalizes established learning theories:
+
+Bloom\'s Taxonomy [@Bloom1956, @Anderson2001]
+
+Hierarchical model of cognitive complexity providing the measurement framework. Foundation: Remember, Understand. Application: Apply. Higher-order: Analyze, Evaluate, Create.
+
+Spiral Curriculum [@Bruner1961]
+
+Revisit concepts at increasing complexity, build on prior knowledge, progressive deepening of understanding. Maps to overlapping Bloom Spread arcs showing how earlier skills integrate into later work.
+
+Scaffolding [@Vygotskii1978]
+
+Zone of Proximal Development, temporary support for skill development, gradual release of responsibility. Visualized in Bloom Spread temporal progression from guided practice to independent mastery.
+
+Constructive Alignment [@Biggs1996]
+
+Learning outcomes, teaching methods, and assessments must align. Bloom Spread enforces structural alignment through required mappings. Assessment → Objective → Outcome chain ensures coherence.
+
+Cognitive Load Theory [@Sweller1988]
+
+Manage intrinsic, extraneous, and germane load. Anti-patterns (cliffs, premature integration) indicate excessive cognitive load. Appropriate Bloom Spread progression manages cognitive load across time.
+
+## Research Applications
+
+### Potential Research Questions
+
+Descriptive Research
+
+- What temporal Bloom patterns are most common in intro biology courses?
+
+- Do patterns differ by discipline (STEM vs humanities vs social sciences)?
+
+- How do patterns change from intro → intermediate → advanced?
+
+- What is the typical Bloom Spread range for each course level?
+
+Correlational Research
+
+- Does Sequential Mastery pattern correlate with higher student success in foundational courses?
+
+- Do anti-patterns correlate with student complaints or DFW rates?
+
+- Does Spiral Integration correlate with better retention one year later?
+
+- Is there a relationship between Bloom Spread progression and course evaluations?
+
+Experimental Research
+
+- If we redesign Course X from Spike-and-Abandon to Spiral Integration, do outcomes improve?
+
+- Does showing instructors their temporal pattern lead to course improvements?
+
+- Can we train faculty to recognize and avoid anti-patterns?
+
+- Does optimizing Bloom Spread progression reduce DFW rates?
+
+Program-Level Research
+
+- Does our curriculum show appropriate progression across the degree program?
+
+- Where are the gaps between courses that need curricular scaffolding?
+
+- How does Bloom Spread align with program learning outcomes?
+
+- What is the cumulative Bloom Spread across a complete degree program?
+
+
+
+## Implementation: BackflowStudio
+
+![](media/Backflow.png)
+
+BackflowStudio is a macOS/iOS application that operationalizes the Bloom Spread framework for course design and analysis. The application enforces backwards design principles through data structure while providing visualization and reporting tools for temporal Bloom analysis.  A complete discussion of this application is found at [https://backflow.studio](https://backflow.studio).  
+
+### Core Features
+
+This application is designed to help instructors develop objective-based courses. 
+
+- **Distribution pie charts:** Show proportions of each Bloom level for outcomes, objectives, and assessments, color-coded by taxonomy level, numerical average displayed in center
+
+
+#### Three-Column Mapping View
+
+![](media/ModuleMappings.png)
+
+Visual interface showing Course Learning Outcomes (blue cards), Module Learning Objectives (green cards), and Assessments (orange/varied cards) with connection lines displaying mappings. Bloom Spread for assessment and accumulated onto each objective.
+
+
+#### Temporal Visualizations
+
+![](media/BloomTrajectory.png)
+
+- **Temporal line graphs:** X-axis = time (weeks, modules, assessment due dates), Y-axis = Bloom Spread (1.0-6.0), multiple lines for different CLOs showing overlapping developmental arcs
+
+
+### Analytics
+
+![](media/Analytics.png)
+
+![](media/InstructionalScaffolding.png)
+
+- **\"Your Pattern\" Analysis:** Shows course\'s temporal Bloom graph, identifies which pattern type it matches, assesses appropriateness for course level
+
+- **\"Cognitive Progression\" View:** Temporal graph for each CLO, overall course Bloom Spread progression, identifies key transition points
+
+- **\"Bloom Balance\" Dashboard:** Pie charts showing distribution, comparison to norms for course level, identifies over/under-represented levels
+
+- **\"Anti-Pattern Detection\":** Flags potential issues (cliffs, premature integration), explains why problematic, suggests specific scaffolding improvements
+
+- **\"Export for Publication\":** Clean graphs for papers/presentations, anonymized data for research, publication-ready visualizations
+
+### Target Users
+
+- **University professors:** Course design, assessment planning, temporal analysis of cognitive scaffolding
+
+- **K-12 teachers:** Unit planning, standards alignment, progressive skill development
+
+- **Instructional designers:** Course quality assurance, backwards design enforcement, data-driven improvement
+
+- **Department chairs:** Program review, curriculum coherence analysis, faculty development support
+
+
+## Conclusion
+
+Bloom Spread represents a significant innovation in educational assessment and course design. By quantifying cognitive complexity and enabling temporal analysis of how that complexity develops, it:
+
+1. **Makes the invisible visible:** Shows pedagogical structure that typically exists only in instructor minds
+
+2. **Enables data-driven improvement:** Identifies anti-patterns and validates effective scaffolding
+
+3. **Supports multiple levels:** From individual assessments to program-wide outcomes
+
+4. **Connects theory to practice:** Operationalizes learning theory concepts (scaffolding, spiral curriculum, constructive alignment)
+
+5. **Facilitates research:** Provides quantitative data for studying curriculum effectiveness
+
+The temporal analysis capability---showing multiple overlapping developmental arcs---represents a particularly novel contribution. Rather than reducing a course to a single static metric, Bloom Spread reveals the complex, dynamic process of skill development across time.
+
+As faculty use this framework to analyze and improve their courses, and as researchers study the patterns that emerge, Bloom Spread has the potential to establish new evidence-based best practices for curriculum design and provide a common language for discussing cognitive scaffolding in higher education.
+
+
+## Ongoing Work
+
+Paper 1: Framework Introduction and Validation
+
+*\"Bloom Spread: A Metric for Quantifying Cognitive Demand in Course Assessments\"* --- Introduces the metric, validates against expert ratings, shows reliability across disciplines, establishes measurement methodology.
+
+Paper 2: Pattern Taxonomy
+
+*\"A Taxonomy of Temporal Bloom Progressions in Higher Education\"* --- Introduces pattern taxonomy, documents prevalence of each pattern, associates patterns with course characteristics, provides exemplars from multiple disciplines.
+
+Paper 3: Outcomes Research
+
+*\"Temporal Bloom Patterns and Student Success: An Empirical Analysis\"* --- Correlates patterns with student outcomes, identifies anti-patterns that predict poor performance, provides evidence-based recommendations, quantifies impact of different progression types.
+
+Paper 4: Intervention Study
+
+*\"From Coverage to Mastery: Redesigning Courses Using Bloom Spread Analysis\"* --- Faculty use visualization tools to identify anti-patterns, measure improvement after redesign, document faculty perceptions and adoption.
+
+
+
+## References {.unnumbered}
+
+::: {#refs}
+:::
